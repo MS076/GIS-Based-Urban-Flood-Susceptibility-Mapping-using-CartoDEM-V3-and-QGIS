@@ -232,7 +232,7 @@ urban-flood-susceptibility-mapping/
 
 # 📷 Sample Outputs
 
-> Add screenshots of the following maps:
+> screenshots of the following maps:
 
 - Study Area
 - CartoDEM
