@@ -15,7 +15,7 @@ Urban flooding has become a recurring challenge in rapidly growing cities due to
 
 This project develops a **GIS-based Urban Flood Susceptibility Map** for the **Ambazari–Sitabuldi–Mor Bhawan corridor in Nagpur, Maharashtra**, using **CartoDEM V3** and hydrological terrain analysis in **QGIS**.
 
-Terrain parameters including **elevation**, **slope**, and **stream proximity** were derived from the Digital Elevation Model (DEM). These thematic layers were reclassified into flood susceptibility classes and combined using raster overlay analysis to generate the final flood-risk map. The results are being validated against historical flood-event locations reported within the study area.
+Terrain parameters including **elevation**, **slope**, and **stream proximity** were derived from the Digital Elevation Model (DEM). These thematic layers were reclassified into flood susceptibility classes and combined using raster overlay analysis to generate the final flood-risk map. The results were validated against documented flood locations from the severe Nagpur flood event of 23 September 2023.
 
 ---
 
@@ -40,7 +40,7 @@ Terrain parameters including **elevation**, **slope**, and **stream proximity** 
 
 **Country:** India
 
-The selected corridor frequently experiences urban flooding during intense rainfall events, making it an appropriate case study for terrain-based flood susceptibility assessment.
+The selected corridor frequently experiences urban flooding during intense rainfall events, making it an appropriate case study for terrain-based flood susceptibility assessment. This corridor was deliberately selected to correspond to the area most severely affected during the September 2023 Nagpur flood event, allowing the model's predictions to be validated against real, documented flood locations.
 
 ---
 
@@ -48,7 +48,7 @@ The selected corridor frequently experiences urban flooding during intense rainf
 
 - ISRO CartoDEM V3 Digital Elevation Model (DEM)
 - Study Area Boundary
-- Historical Flood Locations
+- Historical Flood Locations (September 2023 Nagpur flood event)
 - OpenStreetMap (Reference Layers)
 
 ---
@@ -60,7 +60,7 @@ The selected corridor frequently experiences urban flooding during intense rainf
 - GDAL
 - Raster Calculator
 - CartoDEM V3
-- Python *(planned for workflow automation)*
+- Python (QGIS Python Console) — for quantitative post-processing and validation statistics
 
 ---
 
@@ -103,21 +103,27 @@ A sieve filter was applied to remove isolated raster pixels and improve the visu
 Final Output:
 
 ```
-flood_risk_smoothed.tif
+flood_risk_classified.tif
 ```
 
 ---
 
-## Phase 4 – Validation (In Progress)
+## Phase 4 – Validation
 
-Validation is being performed by comparing predicted high-risk areas with historical flood-event locations within the study area.
+Validation was performed by comparing predicted risk classification against documented locations affected during the 23 September 2023 Nagpur flood event, both by direct pixel sampling and by statistical summary of risk composition within a 100m buffer around each point (see `scripts/02_validation_buffer_stats.py`).
 
-Current Progress:
+Locations checked:
 
-- ✅ Ambazari Lake
-- ✅ Sitabuldi (Location 1)
-- ✅ Sitabuldi (Location 2)
-- 🔄 Variety Chowk / Mor Bhawan
+- ✅ Ambazari
+- ✅ Sitabuldi
+- ✅ Mor Bhawan
+
+**Results:**
+
+- **Ambazari** — strong agreement. The exact point and 100% of its 100m buffer were classified as **high risk**, consistent with the naturally terrain-driven flooding at this location.
+- **Sitabuldi corridor (both points)** — the model **under-predicted** risk here. Both points, and their surrounding 100m buffers, showed **no high-risk classification**, despite being severely affected during the actual 2023 event.
+
+This pattern is consistent with documented drivers of the 2023 flood: encroachment reduced natural water retention areas, and built-up area in Nagpur nearly tripled between 2000 and 2023 — anthropogenic factors that a purely terrain-based DEM model cannot capture. The result demonstrates that DEM-derived terrain models are most reliable for naturally terrain-driven flood mechanisms (like Ambazari Lake), and require supplementary land-use and drainage-infrastructure data to adequately represent flood risk in dense urban corridors like Sitabuldi.
 
 ---
 
@@ -125,11 +131,10 @@ Current Progress:
 
 Planned improvements include:
 
-- Python-based workflow automation
-- Statistical summary generation
-- Automatic raster classification
-- Export of analysis results
-- Integration of rainfall and land-use datasets
+- Integration of land-use/land-cover (LULC) and impervious-surface data
+- Integration of rainfall intensity datasets
+- Incorporation of engineered stormwater drainage-network data
+- Export of analysis results in additional formats
 
 ---
 
@@ -179,7 +184,15 @@ Validation using Historical Flood Events
 
 # 📊 Results
 
-The project successfully generated a GIS-based flood susceptibility map that classifies the study area into different flood-risk categories based on terrain characteristics.
+The project successfully generated a GIS-based flood susceptibility map that classifies the study area into three flood-risk categories (Low, Medium, High) based on terrain characteristics.
+
+Quantitative breakdown of the study area by risk category:
+
+| Risk Category | Area (km²) | Percentage |
+|---|---|---|
+| Low Risk | 17.70 | 36.6% |
+| Medium Risk | 24.33 | 50.3% |
+| High Risk | 6.37 | 13.2% |
 
 Key outputs include:
 
@@ -190,7 +203,7 @@ Key outputs include:
 - Stream Proximity Raster
 - Flood Susceptibility Map
 
-Initial validation indicates good agreement between predicted high-risk zones and known flood-event locations.
+Validation showed strong agreement at Ambazari Lake, but under-prediction of risk in the urbanized Sitabuldi corridor — see Phase 4 above for full discussion.
 
 ---
 
@@ -208,24 +221,27 @@ urban-flood-susceptibility-mapping/
 │   ├── workflow.png
 │   ├── dem.png
 │   ├── slope.png
+│   ├── slope_risk.png
+│   ├── elevation_risk.png
+│   ├── proximity_risk.png
 │   ├── flow_accumulation.png
 │   ├── drainage_network.png
 │   ├── stream_proximity.png
 │   ├── flood_risk_map.png
-│   └── validation.png
 │
 ├── qgis_project/
-│   └── UrbanFloodMapping.qgz
+│   └── Flood_mapping.qgz
 │
 ├── outputs/
-│   ├── flood_risk_smoothed.tif
-│   └── flood_risk_map.pdf
+│   ├── accumulation.tif
+│   ├── flood_risk_classified.tif
 │
 ├── docs/
-│   └── Project_Report.pdf
+│   └── Project_Report.docx
 │
 └── scripts/
-    └── flood_analysis.py
+    ├── 01_risk_area_summary.py
+    └── 02_validation_buffer_stats.py
 ```
 
 ---
@@ -237,9 +253,11 @@ urban-flood-susceptibility-mapping/
 - Study Area
 - CartoDEM
 - Slope
+- Elevation Risk
+- Slope Risk
+- Stream Proximity Risk
 - Flow Accumulation
 - Drainage Network
-- Stream Proximity
 - Final Flood Susceptibility Map
 
 ---
@@ -250,7 +268,6 @@ urban-flood-susceptibility-mapping/
 - Include land-use and land-cover (LULC) analysis
 - Incorporate soil permeability
 - Apply Multi-Criteria Decision Analysis (MCDA)
-- Develop an automated Python processing workflow
 - Extend the methodology to larger urban regions
 
 ---
