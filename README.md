@@ -3,7 +3,7 @@
 > A GIS-based flood susceptibility assessment of the Ambazari–Sitabuldi–Mor Bhawan corridor, Nagpur, using CartoDEM V3, hydrological terrain analysis, and spatial overlay techniques.
 
 ![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
-![QGIS](https://img.shields.io/badge/QGIS-3.x-green)
+![QGIS](https://img.shields.io/badge/QGIS-4.2.0-green)
 ![GIS](https://img.shields.io/badge/Domain-GIS-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -116,8 +116,8 @@ Validation was performed by comparing predicted risk classification against docu
 Locations checked:
 
 - ✅ Ambazari
-- ✅ Sitabuldi (Location 1)
-- ✅ Sitabuldi / Mor Bhawan (Location 2) — Mor Bhawan sits immediately adjacent to Sitabuldi, so this location was treated as representative of both
+- ✅ Sitabuldi
+- ✅ Mor Bhawan
 
 **Results:**
 
@@ -211,38 +211,42 @@ Validation showed strong agreement at Ambazari Lake, but under-prediction of ris
 # 📂 Repository Structure
 
 ```
+GIS-Based-Urban-Flood-Susceptibility-Mapping-using-CartoDEM-V3-and-QGIS/
+│
 ├── README.md
 ├── LICENSE
-├── .gitignore
-├── Nagpur Flood Mapping
-├── report.pdf
 │
-├── images/
-│   ├── study_area.png
-│   ├── workflow.png
-│   ├── dem.png
-│   ├── slope.png
-│   ├── slope_risk.png
-│   ├── elevation_risk.png
-│   ├── proximity_risk.png
-│   ├── flow_accumulation.png
-│   ├── flood_risk_map.png
-│   └── validation.png
-│
-├── qgis_project/
-│   └── UrbanFloodMapping.qgz
-│
-├── final_output/
-│   ├── flood_risk_classified.tif
-│   └── accumulation.tif
-│
-├── tif/
-│   └── (intermediate raster files: DEM, slope, elevation_risk,
-│        slope_risk, proximity_risk, stream_mask, etc.)
-│
-└── scripts/
-    ├── 01_risk_area_summary.py
-    └── 02_validation_buffer_stats.py
+└── Nagpur Flood Mapping/
+    │
+    ├── report.pdf
+    │
+    ├── images/
+    │   ├── Study area.png
+    │   ├── workflow.png
+    │   ├── dem.png
+    │   ├── slope.png
+    │   ├── slope risk.png
+    │   ├── elevation Risk.png
+    │   ├── Proximity Risk.png
+    │   ├── flow_acculumation.png
+    │   ├── fill_sinks_flow_direction.png
+    │   ├── fill_sinks_watershed_basins.png
+    │   └── final risk map.png
+    │
+    ├── qgis_project/
+    │   └── Flood_mapping.qgz
+    │
+    ├── final_output/
+    │   ├── flood_risk_classified.tif
+    │   └── accumulaion.tif
+    │
+    ├── tif/
+    │   └── (intermediate raster files: DEM, slope, elevation_risk,
+    │        slope_risk, proximity_risk, stream_mask, etc.)
+    │
+    └── scripts/
+        ├── 01_risk_area_summary.py
+        └── 02_validation_buffer_stats.py
 ```
 
 ---
