@@ -3,7 +3,7 @@
 > A GIS-based flood susceptibility assessment of the Ambazari–Sitabuldi–Mor Bhawan corridor, Nagpur, using CartoDEM V3, hydrological terrain analysis, and spatial overlay techniques.
 
 ![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
-![QGIS](https://img.shields.io/badge/QGIS-4.2.0-green)
+![QGIS](https://img.shields.io/badge/QGIS-3.x-green)
 ![GIS](https://img.shields.io/badge/Domain-GIS-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -103,7 +103,8 @@ A sieve filter was applied to remove isolated raster pixels and improve the visu
 Final Output:
 
 ```
-flood_risk_classified.tif
+final_output/flood_risk_classified.tif
+final_output/accumulation.tif
 ```
 
 ---
@@ -115,8 +116,8 @@ Validation was performed by comparing predicted risk classification against docu
 Locations checked:
 
 - ✅ Ambazari
-- ✅ Sitabuldi
-- ✅ Mor Bhawan
+- ✅ Sitabuldi (Location 1)
+- ✅ Sitabuldi / Mor Bhawan (Location 2) — Mor Bhawan sits immediately adjacent to Sitabuldi, so this location was treated as representative of both
 
 **Results:**
 
@@ -210,11 +211,11 @@ Validation showed strong agreement at Ambazari Lake, but under-prediction of ris
 # 📂 Repository Structure
 
 ```
-urban-flood-susceptibility-mapping/
-│
 ├── README.md
 ├── LICENSE
 ├── .gitignore
+├── Nagpur Flood Mapping
+├── report.pdf
 │
 ├── images/
 │   ├── study_area.png
@@ -225,19 +226,19 @@ urban-flood-susceptibility-mapping/
 │   ├── elevation_risk.png
 │   ├── proximity_risk.png
 │   ├── flow_accumulation.png
-│   ├── drainage_network.png
-│   ├── stream_proximity.png
 │   ├── flood_risk_map.png
+│   └── validation.png
 │
 ├── qgis_project/
-│   └── Flood_mapping.qgz
+│   └── UrbanFloodMapping.qgz
 │
-├── outputs/
-│   ├── accumulation.tif
+├── final_output/
 │   ├── flood_risk_classified.tif
+│   └── accumulation.tif
 │
-├── docs/
-│   └── Project_Report.docx
+├── tif/
+│   └── (intermediate raster files: DEM, slope, elevation_risk,
+│        slope_risk, proximity_risk, stream_mask, etc.)
 │
 └── scripts/
     ├── 01_risk_area_summary.py
