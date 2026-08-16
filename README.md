@@ -2,8 +2,8 @@
 
 > A GIS-based flood susceptibility assessment of the Ambazari–Sitabuldi–Mor Bhawan corridor, Nagpur, using CartoDEM V3, hydrological terrain analysis, and spatial overlay techniques.
 
-![Status](https://img.shields.io/badge/Status-Work%20in%20Progress-yellow)
-![QGIS](https://img.shields.io/badge/QGIS-3.x-green)
+![Status](https://img.shields.io/badge/Status-Complete-brightgreen)
+![QGIS](https://img.shields.io/badge/QGIS-4.2.0-green)
 ![GIS](https://img.shields.io/badge/Domain-GIS-blue)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
